@@ -36,7 +36,7 @@ source eulerenv/bin/activate
 
 **Exit**
 ```
-deactive
+deactivate
 ```
 
 **Help**
