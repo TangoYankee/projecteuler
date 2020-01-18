@@ -1,18 +1,18 @@
 # projecteuler
 Solutions to problems on projecteuler.net
 
-## Requirments
-*recommend entering [virtual environment](#Manage-Environment) first*
-```
-pip install -r requirements.txt
-```
-
 ## Styling
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)  
 [Documentation](https://black.readthedocs.io/en/stable/index.html)
 ```
 black --help
 black {source_file_or_directory}
+```
+
+## Requirements
+*recommend entering [virtual environment](#Manage-Environment) first*
+```
+pip install -r requirements.txt
 ```
 
 ## Virtual Environment
