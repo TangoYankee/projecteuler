@@ -14,11 +14,11 @@ def find_all_multiples_sets(numbers, upper_limit):
     """
     collection of sets for the multiples of all numbers
     """
-    all_multiple_sets = []
+    all_multiples_sets = []
     for number in numbers:
         each_multiple_set = find_each_multiples_set(number, upper_limit)
-        all_multiple_sets.append(each_multiple_set)
-    return all_multiple_sets
+        all_multiples_sets.append(each_multiple_set)
+    return all_multiples_sets
 
 
 def find_each_multiples_set(number, upper_limit):
