@@ -7,21 +7,21 @@ Find the sum of all the multiples of 3 or 5 below 1000.
 
 
 from user_interface import welcome, find_numbers, find_upper_limit
-from multiples import find_all_multiple_sets, find_master_multiples_set
+from multiples import find_all_multiples_sets, find_master_multiples_set
 
 
 def main():
-    '''
+    """
     user can input any natural number for the upper limit. 
     they can set the value and quantity of numbers from which they would like to find multiples
-    '''
+    """
     welcome()
     upper_limit = find_upper_limit()
     numbers = find_numbers(upper_limit)
-    all_multiple_sets = find_all_multiple_sets(numbers, upper_limit)
-    master_multiples_set = find_master_multiples_set(all_multiples)
-    sum_all_multiples = sum(master_multiples)
-    print(sum_all_multiples)
+    all_multiples_sets = find_all_multiples_sets(numbers, upper_limit)
+    master_multiples_set = find_master_multiples_set(all_multiples_sets)
+    sum_master_multiples = sum(master_multiples_set)
+    print(sum_master_multiples)
 
 
 if __name__ == "__main__":
