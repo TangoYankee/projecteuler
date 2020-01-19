@@ -31,16 +31,9 @@ Find ∑n = 0,1,...,17   10n× DA,B((127+19n)×7n) .
 
 import math
 
-from positions import (
-    find_highest_position,
-    find_position,
-    find_positions,
-)
-
-
 def main():
     """
-    the summation of the nth position of a concatentated string as n goes from 0 to 17
+    use the golden ratio to determine which term the digit will fall into
     """
     A = "1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679"
     B = "8214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196"
@@ -50,21 +43,21 @@ def main():
 
 
     digits = []
-    for n in range(to_n+1):
-        position = find_position((n))-1
+    for n in range(to_n, -1, -1):
+        position = find_position((n))
         adjusted_position = shift_position(position, terms)
         remainder_position = leftover_position(position, terms)
         m = adjusted_position//(phi**2)
         x = math.ceil(m * phi ** 2)
         if x == adjusted_position:
-            value = int(terms[0][remainder_position])*10**n
+            value = terms[0][remainder_position]
             digits.append(value)
         else:
-            value = int(terms[1][remainder_position])*10**n
+            value = terms[1][remainder_position]
             digits.append(value)
 
     # print(f'position: {adjusted_position}\nm: {m}\nx {x}')
-    print(f'digits {sum(digits)}')
+    print(f"digits {''.join(digits)}")
 
 
     
@@ -72,7 +65,7 @@ def find_position(n):
     """
     generate a position for nth the character
     """
-    return (127 + 19 * n) * (7 ** n)
+    return (127 + 19 * n) * (7 ** n) - 1
 
 def shift_position(position, terms):
     """
@@ -86,73 +79,6 @@ def leftover_position(position, terms):
     """
     return(position%len(terms[0]))
 
-
-
-    # positions = find_positions(to_n)
-    # adjusted_positions = map(lambda x: x/100 positions)
-    # highest_position = find_highest_position(positions)
-    # F = [100, 100]
-    # F = generate_sequence(F, highest_position)
-    # print(f'number of terms: {len(F)}\nsecond highest term: {F[-2]}\nhighest position {highest_position}')
-    # term_indices = find_term_indices(positions, F)
-    # print(term_indices)
-
-    # digits = find_digits(positions, F)
-    # digits_by_tens = find_digits_by_tens(digits)
-    # print(sum(digits_by_tens))
-
-
-def find_term_indices(positions, F):
-    """
-    collect the indices of the terms that satisfy all of the positions generated from 0 to 17
-    """
-    term_indices = []
-    for position in positions:
-        # print(f'length of F: {len(F)}')
-        term_index = 0
-        for i in range(term_index, (len(F) + 1)):
-            term = F[i]
-            if term >= position:
-                term_index = F.index(term)
-                # print(f'index for term: {term_index}')
-                term_indices.append(term_index)
-                break
-    return term_indices
-
-
-def find_digit(term, position):
-    """
-    get the digit from the term based on the position
-    """
-    return term[position - 1 : position]
-
-
-def find_digits_by_tens(digits):
-    """
-    ten raised to the power of n
-    """
-    digits_by_tens = []
-    n = 0
-    for digit in digits:
-        tens = 10 ** n
-        real_digit = int(digit)
-        digit_by_ten = real_digit * tens
-        digits_by_tens.append(digit_by_ten)
-        n += 1
-    return digits_by_tens
-
-
-def generate_sequence(F, highest_position):
-    """
-    concatenate and save the strings until they are long enough to satisfy all positions
-    """
-    current = F[-1]
-    while current < highest_position:
-        current = F[-2] + F[-1]
-        F.append(current)
-    return F
-
-    
 
 if __name__ == "__main__":
     main()
