@@ -40,14 +40,41 @@ def main():
     to_n = 17
 
     positions = find_positions(to_n)
+    # adjusted_positions = map(lambda x: x/100 positions)
     highest_position = find_highest_position(positions)
-
-    F = [A, B]
+    F = [100, 100]
     F = generate_sequence(F, highest_position)
+    # print(f'number of terms: {len(F)}\nsecond highest term: {F[-2]}\nhighest position {highest_position}')
+    term_indices = find_term_indices(positions, F)
 
-    digits = find_digits(positions, F)
-    digits_by_tens = find_digits_by_tens(digits)
-    print(sum(digits_by_tens))
+    # digits = find_digits(positions, F)
+    # digits_by_tens = find_digits_by_tens(digits)
+    # print(sum(digits_by_tens))
+
+
+def find_term_indices(positions, F):
+    """
+    collect the indices of the terms that satisfy all of the positions generated from 0 to 17
+    """
+    term_indices = []
+    for position in positions:
+        # print(f'length of F: {len(F)}')
+        term_index = 0
+        for i in range(term_index, (len(F)+1)):
+            term = F[i]
+            if term >= position:
+                term_index = F.index(term)
+                # print(f'index for term: {term_index}')
+                term_indices.append(term_index)
+                break
+    return term_indices
+
+
+def find_digit(term, position):
+    """
+    get the digit from the term based on the position
+    """
+    return term[position - 1 : position]
 
 
 def find_digits_by_tens(digits):
@@ -65,33 +92,13 @@ def find_digits_by_tens(digits):
     return digits_by_tens
 
 
-def find_digits(positions, F):
-    """
-    collect the digits for all of the positions
-    """
-    digits = []
-    for position in positions:
-        for term in F:
-            if len(term) >= position:
-                digits.append(find_digit(term, position))
-                F = cut_f(F, term)
-                break
-    return digits
+# def cut_f(F, term):
+#     """
+#     Reduce the number of elements that need to be searched
+#     """
+#     term_position = F.index(term)
+#     return F[term_position + 1 :]
 
-
-def cut_f(F, term):
-    """
-    Reduce the number of elements that need to be searched
-    """
-    term_position = F.index(term)
-    return F[term_position + 1 :]
-
-
-def find_digit(term, position):
-    """
-    get the digit from the term based on the position
-    """
-    return term[position - 1 : position]
 
 
 def generate_sequence(F, highest_position):
@@ -99,8 +106,8 @@ def generate_sequence(F, highest_position):
     concatenate and save the strings until they are long enough to satisfy all positions
     """
     current = F[-1]
-    while len(current) < highest_position:
-        current = concat_string(F[-2], F[-1])
+    while current < highest_position:
+        current = F[-2]+F[-1]
         F.append(current)
     return F
 
@@ -127,11 +134,11 @@ def find_position(n):
     return (127 + 19 * n) * (7 ** n)
 
 
-def concat_string(minus_two, minus_one):
-    """
-    concat previous two strings
-    """
-    return minus_two + minus_one
+# def concat_string(minus_two, minus_one):
+#     """
+#     concat previous two strings
+#     """
+#     return minus_two + minus_one
 
 
 if __name__ == "__main__":

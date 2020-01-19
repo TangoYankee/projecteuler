@@ -4,11 +4,11 @@ from main import (
     find_highest_position,
     find_position,
     find_positions,
-    concat_string,
+    # concat_string,
     generate_sequence,
     find_digit,
-    cut_f,
-    find_digits,
+    # cut_f,
+    find_terms,
     find_digits_by_tens,
 )
 
@@ -24,16 +24,16 @@ class TestFindPosition(unittest.TestCase):
         self.assertEqual(result, expected)
 
 
-class TestConcatString(unittest.TestCase):
-    def test_concat_string(self):
-        """
-        generate a position of nth the character
-        """
-        minus_two = "A"
-        minus_one = "B"
-        expected = "AB"
-        result = concat_string(minus_two, minus_one)
-        self.assertEqual(result, expected)
+# class TestConcatString(unittest.TestCase):
+#     def test_concat_string(self):
+#         """
+#         generate a position of nth the character
+#         """
+#         minus_two = "A"
+#         minus_one = "B"
+#         expected = "AB"
+#         result = concat_string(minus_two, minus_one)
+#         self.assertEqual(result, expected)
 
 
 class TestFindPositions(unittest.TestCase):
@@ -63,10 +63,10 @@ class TestFindHighestPosition(unittest.TestCase):
         """
         the positions are presorted to have the highest at the end
         """
-        F = ["A", "B"]
+        F = [1, 1]
         highest_position = 10
         result = generate_sequence(F, highest_position)
-        expected = ["A", "B", "AB", "BAB", "ABBAB", "BABABBAB", "ABBABBABABBAB"]
+        expected = [1, 1, 2, 3, 5, 8, 13]
         self.assertEqual(result, expected)
 
 
@@ -95,14 +95,14 @@ class TestCutF(unittest.TestCase):
 
 
 class TestFindDigits(unittest.TestCase):
-    def test_find_digits(self):
+    def test_find_terms(self):
         """
         collect the digits for all of the positions
         """
-        positions = [2, 4, 10]
-        F = ["A", "B", "AB", "BAB", "ABBAB", "BABABBAB", "ABBABBABABBAB"]
-        expected = ["B", "A", "B"]
-        result = find_digits(positions, F)
+        positions = [200, 400, 1000]
+        F = [100, 100, 200, 300, 500, 800, 1300]
+        expected = [2, 5, 13]
+        result = find_terms(positions, F)
         self.assertEqual(result, expected)
 
 
