@@ -44,7 +44,7 @@ def main():
 
     digits = []
     for n in range(to_n, -1, -1):
-        position = find_position((n))
+        position = find_position(n)
         adjusted_position = shift_position(position, terms)
         remainder_position = leftover_position(position, terms)
         m = adjusted_position // (phi ** 2)
