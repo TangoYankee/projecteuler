@@ -1,6 +1,6 @@
 import unittest
 
-from main import find_position, shift_position, leftover_position
+from main import FibonacciWords, find_position
 
 
 class TestFindPosition(unittest.TestCase):
@@ -21,10 +21,10 @@ class TestShiftPosition(unittest.TestCase):
         """
         A = "1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679"
         B = "8214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196"
-        terms = [A, B]
+        fibonacci_words = FibonacciWords(A, B, 17)
         value = 150
         expected = 1
-        result = shift_position(value, terms)
+        result = fibonacci_words._shift_position(value)
         self.assertEqual(result, expected)
 
 
@@ -35,8 +35,8 @@ class TestLeftoverPosition(unittest.TestCase):
         """
         A = "1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679"
         B = "8214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196"
-        terms = [A, B]
+        fibonacci_words = FibonacciWords(A, B, 17)
         value = 150
         expected = 50
-        result = leftover_position(value, terms)
+        result = fibonacci_words._leftover_position(value)
         self.assertEqual(result, expected)

@@ -32,28 +32,43 @@ Find ∑n = 0,1,...,17   10n× DA,B((127+19n)×7n) .
 import math
 
 
-def main():
-    """
-    use the golden ratio to determine which term the digit will fall into
-    """
-    A = "1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679"
-    B = "8214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196"
-    terms = [A, B]
+class FibonacciWords:
     phi = 0.5 + math.sqrt(5) / 2
-    to_n = 17
 
-    digits = []
-    for n in range(to_n, -1, -1):
-        position = find_position(n)
-        adjusted_position = shift_position(position, terms)
-        remainder_position = leftover_position(position, terms)
-        m = adjusted_position // (phi ** 2)
-        x = math.ceil(m * phi ** 2)
-        correct_term = find_correct_term(x, adjusted_position)
-        digit = terms[correct_term][remainder_position]
-        digits.append(digit)
-    solution = "".join(digits)
-    print(f"solution: {solution}")
+    def __init__(self, A, B, to_n):
+        self.terms = [A, B]
+        self.to_n = to_n
+        self.digits = []
+        self._find_digits()
+
+    def _find_digits(self):
+        '''
+        use the golden ratio to determine which term contains the correct digit
+        '''
+        for n in range(self.to_n, -1, -1):
+            position = find_position(n)
+            adjusted_position = self._shift_position(position)
+            remainder_position = self._leftover_position(position)
+            m = adjusted_position // (self.phi ** 2)
+            x = math.ceil(m * self.phi ** 2)
+            correct_term = find_correct_term(x, adjusted_position)
+            digit = self.terms[correct_term][remainder_position]
+            self.digits.append(digit)
+
+    def _shift_position(self, position):
+        """
+        adjust position to reflect each sequence only starts every 100th term
+        """
+        return position // len(self.terms[0])
+
+    def _leftover_position(self, position):
+        """
+        take the remainder to know how deep into the term to go to find the digit
+        """
+        return position % len(self.terms[0])
+
+    def get_digits_sum(self):
+        return "".join(self.digits)
 
 
 def find_correct_term(x, adjusted_position):
@@ -73,18 +88,12 @@ def find_position(n):
     return (127 + 19 * n) * (7 ** n) - 1
 
 
-def shift_position(position, terms):
-    """
-    adjust position to reflect each sequence only starts every 100th term
-    """
-    return position // len(terms[0])
-
-
-def leftover_position(position, terms):
-    """
-    take the remainder to know how deep into the term to go to find the digit
-    """
-    return position % len(terms[0])
+def main():
+    A = "1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679"
+    B = "8214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196"
+    to_n = 17
+    fibonacci_pi = FibonacciWords(A, B, to_n)
+    print(fibonacci_pi.get_digits_sum())
 
 
 if __name__ == "__main__":
