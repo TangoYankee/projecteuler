@@ -1,9 +1,17 @@
 import unittest
 
-from main import (
-    shift_position,
-    leftover_position
-)
+from main import find_position, shift_position, leftover_position
+
+
+class TestFindPosition(unittest.TestCase):
+    def test_find_position(self):
+        """
+        generate a position of nth the character
+        """
+        n = 2
+        expected = 8085 - 1
+        result = find_position(n)
+        self.assertEqual(result, expected)
 
 
 class TestShiftPosition(unittest.TestCase):
@@ -19,6 +27,7 @@ class TestShiftPosition(unittest.TestCase):
         result = shift_position(value, terms)
         self.assertEqual(result, expected)
 
+
 class TestLeftoverPosition(unittest.TestCase):
     def test_leftover_position(self):
         """
@@ -31,6 +40,3 @@ class TestLeftoverPosition(unittest.TestCase):
         expected = 50
         result = leftover_position(value, terms)
         self.assertEqual(result, expected)
-
-class TestFindPosition(unittest.TestCase):
-    def test_find_position(self):
