@@ -29,6 +29,8 @@ and for B the next hundred digits:
 Find ∑n = 0,1,...,17   10n× DA,B((127+19n)×7n) .
 """
 
+import math
+
 from positions import (
     find_highest_position,
     find_position,
@@ -42,16 +44,58 @@ def main():
     """
     A = "1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679"
     B = "8214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196"
+    terms = [A, B]
+    phi = 0.5 + math.sqrt(5)/2
     to_n = 17
 
-    positions = find_positions(to_n)
+
+    digits = []
+    for n in range(to_n+1):
+        position = find_position((n))-1
+        adjusted_position = shift_position(position, terms)
+        remainder_position = leftover_position(position, terms)
+        m = adjusted_position//(phi**2)
+        x = math.ceil(m * phi ** 2)
+        if x == adjusted_position:
+            value = int(terms[0][remainder_position])*10**n
+            digits.append(value)
+        else:
+            value = int(terms[1][remainder_position])*10**n
+            digits.append(value)
+
+    # print(f'position: {adjusted_position}\nm: {m}\nx {x}')
+    print(f'digits {sum(digits)}')
+
+
+    
+def find_position(n):
+    """
+    generate a position for nth the character
+    """
+    return (127 + 19 * n) * (7 ** n)
+
+def shift_position(position, terms):
+    """
+    adjust position to reflect each sequence only starts every 100th term
+    """
+    return (position//len(terms[0]))
+
+def leftover_position(position, terms):
+    """
+    take the remainder to know how deep into the term to go to find the digit
+    """
+    return(position%len(terms[0]))
+
+
+
+    # positions = find_positions(to_n)
     # adjusted_positions = map(lambda x: x/100 positions)
-    highest_position = find_highest_position(positions)
-    F = [100, 100]
-    F = generate_sequence(F, highest_position)
+    # highest_position = find_highest_position(positions)
+    # F = [100, 100]
+    # F = generate_sequence(F, highest_position)
     # print(f'number of terms: {len(F)}\nsecond highest term: {F[-2]}\nhighest position {highest_position}')
-    term_indices = find_term_indices(positions, F)
-    print(term_indices)
+    # term_indices = find_term_indices(positions, F)
+    # print(term_indices)
 
     # digits = find_digits(positions, F)
     # digits_by_tens = find_digits_by_tens(digits)
