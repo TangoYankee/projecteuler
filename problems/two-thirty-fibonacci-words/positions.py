@@ -13,6 +13,7 @@ def find_positions(to_n):
     for n in range(to_n + 1):
         position = find_position(n)
         positions.append(position)
+    print((positions[-1]-positions[-2])/100)
     return positions
 
 

@@ -1,4 +1,4 @@
-
+import re
 
 def predict_term(index):
     '''
@@ -34,4 +34,45 @@ def generate_sequence(length):
         F.append(term)
     return(F)
 
+def double_second():
+    F = generate_sequence(20)
+    term = F[-1]
+    return ([m.start() for m in re.finditer('BB', term)])
+
+def repeat_difference():
+    double = double_second()
+    differences = []
+    for i in range(1, len(double)):
+        difference = double[i]-double[i-1]
+        differences.append(difference)
+    return differences
+
+def double_fives():
+    differences = repeat_difference()
+    five_streak_tracker = []
+    five_streak_counter = 0
+    for number in differences:
+        if number == 5:
+            five_streak_counter +=1
+        else:
+            five_streak_tracker.append(five_streak_counter)
+            five_streak_counter = 0
+    return(five_streak_tracker)
+
+def double_double():
+    differences = double_fives()
+    two_streak_tracker = []
+    two_streak_counter = 0
+    for number in differences:
+        if number == 2:
+            two_streak_counter +=1
+        else:
+            two_streak_tracker.append(two_streak_counter)
+            two_streak_counter = 0
+    print(two_streak_tracker)
+
 # generate_sequence()
+# double_second()
+# repeat_difference()
+# double_fives()
+double_double()
