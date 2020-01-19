@@ -16,6 +16,35 @@ from positions import (
     find_positions,
 )
 
+from predict_term import predict_term, is_even
+
+class TestIsEven(unittest.TestCase):
+    '''
+    algorithms for the next term are based on whether it is an even or odd index
+    '''
+    def test_is_even(self):
+        value = 4
+        result = is_even(value)
+        self.assertTrue(result)
+
+    def test_is_odd(self):
+        value = 5
+        result = is_even(value)
+        self.assertFalse(result)
+
+
+class TestPredictTerm(unittest.TestCase):
+    # ['A', 'B', 'AB', 'BAB', 'ABBAB', 'BABABBAB', 'ABBABBABABBAB', 'BABABBABABBABBABABBAB', 'ABBABBABABBABBABABBABABBABBABABBAB', 'BABABBABABBABBABABBABABBABBABABBABBABABBABABBABBABABBAB', 'ABBABBABABBABBABABBABABBABBABABBABBABABBABABBABBABABBABABBABBABABBABBABABBABABBABBABABBAB', 'BABABBABABBABBABABBABABBABBABABBABBABABBABABBABBABABBABABBABBABABBABBABABBABABBABBABABBABBABABBABABBABBABABBABABBABBABABBABBABABBABABBABBABABBAB']
+    def test_predict_odd_term(self):
+        '''
+        ability to predicted which term will appear at a given index of the sequence
+        '''
+        index = 11
+        expected = 'BABABBABABBABBABABBABABBABBABABBABBABABBABABBABBABABBABABBABBABABBABBABABBABABBABBABABBABBABABBABABBABBABABBABABBABBABABBABBABABBABABBABBABABBAB'
+        result = predict_term(index)
+        self.assertEqual(result, expected)
+
+
 
 class TestFindPosition(unittest.TestCase):
     def test_find_position(self):
