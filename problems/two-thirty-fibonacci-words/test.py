@@ -1,15 +1,19 @@
 import unittest
 
 from main import (
+    # find_highest_position,
+    # find_position,
+    # find_positions,
+    generate_sequence,
+    find_digit,
+    find_term_indices,
+    find_digits_by_tens,
+)
+
+from positions import (
     find_highest_position,
     find_position,
     find_positions,
-    # concat_string,
-    generate_sequence,
-    find_digit,
-    # cut_f,
-    find_terms,
-    find_digits_by_tens,
 )
 
 
@@ -22,18 +26,6 @@ class TestFindPosition(unittest.TestCase):
         expected = 8085
         result = find_position(n)
         self.assertEqual(result, expected)
-
-
-# class TestConcatString(unittest.TestCase):
-#     def test_concat_string(self):
-#         """
-#         generate a position of nth the character
-#         """
-#         minus_two = "A"
-#         minus_one = "B"
-#         expected = "AB"
-#         result = concat_string(minus_two, minus_one)
-#         self.assertEqual(result, expected)
 
 
 class TestFindPositions(unittest.TestCase):
@@ -82,27 +74,15 @@ class TestFindDigit(unittest.TestCase):
         self.assertEqual(result, expected)
 
 
-class TestCutF(unittest.TestCase):
-    def test_cut_F(self):
-        """
-        Reduce the number of elements that need to be searched
-        """
-        term = "BAB"
-        F = ["A", "B", "AB", "BAB", "ABBAB", "BABABBAB", "ABBABBABABBAB"]
-        expected = ["ABBAB", "BABABBAB", "ABBABBABABBAB"]
-        result = cut_f(F, term)
-        self.assertEqual(result, expected)
-
-
 class TestFindDigits(unittest.TestCase):
-    def test_find_terms(self):
+    def test_find_indices(self):
         """
         collect the digits for all of the positions
         """
         positions = [200, 400, 1000]
         F = [100, 100, 200, 300, 500, 800, 1300]
-        expected = [2, 5, 13]
-        result = find_terms(positions, F)
+        expected = [2, 4, 6]
+        result = find_term_indices(positions, F)
         self.assertEqual(result, expected)
 
 

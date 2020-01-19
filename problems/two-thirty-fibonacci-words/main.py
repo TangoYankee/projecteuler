@@ -27,8 +27,13 @@ and for B the next hundred digits:
 48111745028410270193852110555964462294895493038196 .
 
 Find ∑n = 0,1,...,17   10n× DA,B((127+19n)×7n) .
-
 """
+
+from positions import (
+    find_highest_position,
+    find_position,
+    find_positions,
+)
 
 
 def main():
@@ -46,6 +51,7 @@ def main():
     F = generate_sequence(F, highest_position)
     # print(f'number of terms: {len(F)}\nsecond highest term: {F[-2]}\nhighest position {highest_position}')
     term_indices = find_term_indices(positions, F)
+    print(term_indices)
 
     # digits = find_digits(positions, F)
     # digits_by_tens = find_digits_by_tens(digits)
@@ -60,7 +66,7 @@ def find_term_indices(positions, F):
     for position in positions:
         # print(f'length of F: {len(F)}')
         term_index = 0
-        for i in range(term_index, (len(F)+1)):
+        for i in range(term_index, (len(F) + 1)):
             term = F[i]
             if term >= position:
                 term_index = F.index(term)
@@ -92,53 +98,40 @@ def find_digits_by_tens(digits):
     return digits_by_tens
 
 
-# def cut_f(F, term):
-#     """
-#     Reduce the number of elements that need to be searched
-#     """
-#     term_position = F.index(term)
-#     return F[term_position + 1 :]
-
-
-
 def generate_sequence(F, highest_position):
     """
     concatenate and save the strings until they are long enough to satisfy all positions
     """
     current = F[-1]
     while current < highest_position:
-        current = F[-2]+F[-1]
+        current = F[-2] + F[-1]
         F.append(current)
     return F
 
 
-def find_highest_position(positions):
-    """
-    positions are presorted to have the highest at the end
-    """
-    return positions[-1]
-
-
-def find_positions(to_n):
-    positions = []
-    for n in range(to_n + 1):
-        position = find_position(n)
-        positions.append(position)
-    return positions
-
-
-def find_position(n):
-    """
-    generate a position for nth the character
-    """
-    return (127 + 19 * n) * (7 ** n)
-
-
-# def concat_string(minus_two, minus_one):
+# def find_highest_position(positions):
 #     """
-#     concat previous two strings
+#     positions are presorted to have the highest at the end
 #     """
-#     return minus_two + minus_one
+#     return positions[-1]
+
+
+# def find_positions(to_n):
+#     '''
+#     collect all of the calculated positions into a list
+#     '''
+#     positions = []
+#     for n in range(to_n + 1):
+#         position = find_position(n)
+#         positions.append(position)
+#     return positions
+
+
+# def find_position(n):
+#     """
+#     generate a position for nth the character
+#     """
+#     return (127 + 19 * n) * (7 ** n)
 
 
 if __name__ == "__main__":
