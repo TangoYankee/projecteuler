@@ -43,3 +43,24 @@ deactivate
 ```
 python3 -h venv
 ```
+
+## Run a problem
+1. enter the problem directory
+```
+cd problems/[problem-folder]
+```
+2. run the problem.  
+*all problems have main as the starting file.*
+```
+python main.py
+```
+
+## Unit Test a problem
+1. enter the problem directory
+```
+cd problems/[problem-folder]
+```
+2. test the functions of the problem
+```
+python -m unittest test
+```
