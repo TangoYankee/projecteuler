@@ -33,59 +33,68 @@ import math
 
 
 class FibonacciWords:
-    phi = 0.5 + math.sqrt(5) / 2
-
     def __init__(self, A, B, to_n):
         self.terms = [A, B]
+        self.term_length = len(A)
         self.to_n = to_n
         self.digits = []
         self._find_digits()
 
     def _find_digits(self):
-        '''
+        """
         use the golden ratio to determine which term contains the correct digit
-        '''
+        """
         for n in range(self.to_n, -1, -1):
-            position = find_position(n)
-            adjusted_position = self._shift_position(position)
-            remainder_position = self._leftover_position(position)
-            m = adjusted_position // (self.phi ** 2)
-            x = math.ceil(m * self.phi ** 2)
-            correct_term = find_correct_term(x, adjusted_position)
-            digit = self.terms[correct_term][remainder_position]
+            fibonacci_position = FibonacciPosition(n, self.term_length)
+            digit = fibonacci_position.get_digit(self.terms)
             self.digits.append(digit)
-
-    def _shift_position(self, position):
-        """
-        adjust position to reflect each sequence only starts every 100th term
-        """
-        return position // len(self.terms[0])
-
-    def _leftover_position(self, position):
-        """
-        take the remainder to know how deep into the term to go to find the digit
-        """
-        return position % len(self.terms[0])
 
     def get_digits_sum(self):
         return "".join(self.digits)
 
 
-def find_correct_term(x, adjusted_position):
-    """
-    use either first or second term
-    """
-    if x == adjusted_position:
-        return 0
-    else:
-        return 1
+class FibonacciPosition:
+    phi = 0.5 + math.sqrt(5) / 2
 
+    def __init__(self, n, term_length):
+        self.n = n
+        self.term_length = term_length
+        self.position = self._find_position()
+        self.adjusted_position = self._shift_position()
+        self.m = self.adjusted_position // (self.phi ** 2)
+        self.x = math.ceil(self.m * self.phi ** 2)
+        self.correct_term = self._find_correct_term()
+        self.remainder_position = self._leftover_position()
 
-def find_position(n):
-    """
-    generate a position for nth the character
-    """
-    return (127 + 19 * n) * (7 ** n) - 1
+    def get_digit(self, terms):
+        return terms[self.correct_term][self.remainder_position]
+
+    def _find_position(self):
+        """
+        generate a position for nth the character
+        """
+        return (127 + 19 * self.n) * (7 ** self.n) - 1
+
+    def _shift_position(self):
+        """
+        adjust position to reflect each sequence only starts every 100th term
+        """
+        return self.position // self.term_length
+
+    def _leftover_position(self):
+        """
+        take the remainder to know how deep into the term to go to find the digit
+        """
+        return self.position % self.term_length
+
+    def _find_correct_term(self):
+        """
+        use either first or second term
+        """
+        if self.x == self.adjusted_position:
+            return 0
+        else:
+            return 1
 
 
 def main():
