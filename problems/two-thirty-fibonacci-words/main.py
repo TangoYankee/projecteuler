@@ -102,7 +102,7 @@ def main():
     B = "8214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196"
     to_n = 17
     fibonacci_pi = FibonacciWords(A, B, to_n)
-    print(fibonacci_pi.get_digits_sum())
+    print(f"solution: {fibonacci_pi.get_digits_sum()}")
 
 
 if __name__ == "__main__":
