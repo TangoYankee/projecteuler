@@ -1,6 +1,6 @@
 import unittest
 
-from main import FibonacciWords, find_position
+from main import FibonacciPosition
 
 
 class TestFindPosition(unittest.TestCase):
@@ -8,9 +8,9 @@ class TestFindPosition(unittest.TestCase):
         """
         generate a position of nth the character
         """
-        n = 2
+        fibonacci_position = FibonacciPosition(2, 100)
         expected = 8085 - 1
-        result = find_position(n)
+        result = fibonacci_position._find_position()
         self.assertEqual(result, expected)
 
 
@@ -19,12 +19,9 @@ class TestShiftPosition(unittest.TestCase):
         """
         adjust position to reflect each sequence only starts every 100th term
         """
-        A = "1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679"
-        B = "8214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196"
-        fibonacci_words = FibonacciWords(A, B, 17)
-        value = 150
-        expected = 1
-        result = fibonacci_words._shift_position(value)
+        fibonacci_position = FibonacciPosition(2, 100)
+        expected = 80
+        result = fibonacci_position._shift_position()
         self.assertEqual(result, expected)
 
 
@@ -33,10 +30,7 @@ class TestLeftoverPosition(unittest.TestCase):
         """
         take the remainder to know how deep into the term to go to find the digit
         """
-        A = "1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679"
-        B = "8214808651328230664709384460955058223172535940812848111745028410270193852110555964462294895493038196"
-        fibonacci_words = FibonacciWords(A, B, 17)
-        value = 150
-        expected = 50
-        result = fibonacci_words._leftover_position(value)
+        fibonacci_position = FibonacciPosition(2, 100)
+        expected = 84
+        result = fibonacci_position._leftover_position()
         self.assertEqual(result, expected)
