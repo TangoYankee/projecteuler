@@ -34,6 +34,9 @@ import math
 
 class FibonacciWords:
     def __init__(self, A, B, to_n):
+        """
+        find the sum of digits at the requested position in a fibonacci word
+        """
         self.terms = [A, B]
         self.term_length = len(A)
         self.to_n = to_n
@@ -50,6 +53,10 @@ class FibonacciWords:
             self.digits.append(digit)
 
     def get_digits_sum(self):
+        """
+        each digit is its related tens place.
+        they can be left as a string and joined, rather than added together.
+        """
         return "".join(self.digits)
 
 
@@ -57,6 +64,9 @@ class FibonacciPosition:
     phi = 0.5 + math.sqrt(5) / 2
 
     def __init__(self, n, term_length):
+        """
+        each position recieves a calculation of the golden ratio
+        """
         self.n = n
         self.term_length = term_length
         self.position = self._find_position()
@@ -67,6 +77,9 @@ class FibonacciPosition:
         self.remainder_position = self._leftover_position()
 
     def get_digit(self, terms):
+        """
+        retrieve the correct digit from the correct term
+        """
         return terms[self.correct_term][self.remainder_position]
 
     def _find_position(self):
