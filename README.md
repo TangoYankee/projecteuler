@@ -54,6 +54,10 @@ cd problems/[problem-folder]
 ```
 python main.py
 ```
+*To time the programs on linux systems*
+```
+time python main.py
+```
 
 ## Unit Test a problem
 1. enter the problem directory
