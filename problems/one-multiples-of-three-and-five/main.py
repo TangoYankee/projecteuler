@@ -6,8 +6,9 @@ Find the sum of all the multiples of 3 or 5 below 1000.
 """
 
 
-from user_interface import welcome, find_numbers, find_upper_limit
+# from user_interface import welcome, find_numbers, find_upper_limit
 from multiples_set import Set
+from user_interface import UserInterface
 
 
 def main():
@@ -15,11 +16,16 @@ def main():
     user can input any natural number for the upper limit. 
     they can set the value and quantity of numbers from which they would like to find multiples
     """
-    welcome()
-    upper_limit = find_upper_limit()
-    numbers = find_numbers(upper_limit)
-    multiples_set = Set(numbers, upper_limit)
-    print(multiples_set.get_set_sum())
+    interface = UserInterface()
+    interface.show_welcome()
+    upper_limit = interface.get_upper_limit()
+    if upper_limit == False:
+        interface.show_tries_reached()
+    else:
+        numbers = interface.get_numbers(upper_limit)
+        master_set = Set(numbers, upper_limit)
+        multiples_sum = master_set.get_set_sum()
+        interface.show_solution(multiples_sum)
 
 
 if __name__ == "__main__":
