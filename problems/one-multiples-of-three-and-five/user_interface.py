@@ -4,9 +4,15 @@ class UserInterface:
     continue_key = "y"
 
     def __init__(self):
+        """
+        recieve natural numbers and their upper limit through a command line 
+        """
         self._messages()
 
     def _messages(self):
+        """
+        guidance for the needs of the system from the user
+        """
         self.welcome_message = "Welcome! We will find the sum of all the multiples of numbers you select which are below an upper limit you set"
         self.solution_message = "The sum of the multiples is: "
         self.too_low_alert = "This integer is not at least 2"
@@ -18,7 +24,7 @@ class UserInterface:
             "To input more numbers, enter 'y'. Press any other key to continue: "
         )
         self.too_high_or_repeat_alert = (
-            "This value is not below the upper limit or has already been used"
+            "This value is below zero, above the upper limit, or already used"
         )
 
     def show_welcome(self):
@@ -28,14 +34,21 @@ class UserInterface:
         print(self.welcome_message)
 
     def show_solution(self, multiples_sum):
+        """
+        solution and message explaining
+        """
         print(f"{self.solution_message}{multiples_sum}")
 
     def show_tries_reached(self):
+        """
+        the user failed to enter a valid value within the given tries
+        """
         print(self.try_limit_alert)
 
     def get_upper_limit(self):
         """
-        the number up to which the multiples will be found and added
+        the natural number up to which the multiples will be found and added.
+        limited number of tries
         """
         tries = 0
         while tries < self.try_limit:
@@ -53,15 +66,17 @@ class UserInterface:
 
     def get_numbers(self, upper_limit):
         """
-        numbers are the base to find all of the multiples
+        receive natural numbers from user as long as they want to add more.
+        need at least one, with each less than the ceiling, no duplicates,
+        and fewer numbers than the value of the ceiling.
         """
         numbers = []
         enter_more = self.continue_key
-        while (enter_more == self.continue_key) & (len(numbers) < upper_limit):
+        while (enter_more == self.continue_key) & ((len(numbers)) < upper_limit):
             number_input = UserInput(input(self.number_request))
             if number_input.get_is_int():
                 number_int = number_input.get_int_value()
-                if (number_int < upper_limit) & (number_int not in numbers):
+                if (0 < number_int < upper_limit) & (number_int not in numbers):
                     numbers.append(number_int)
                 else:
                     print(self.too_high_or_repeat_alert)
@@ -76,14 +91,23 @@ class UserInterface:
 
 class UserInput:
     def __init__(self, value):
+        """
+        state of input from user
+        """
         self.value = value
         self._to_int()
         self._is_int()
 
     def get_int_value(self):
+        """
+        get the integer version of the value
+        """
         return self.int_value
 
     def get_is_int(self):
+        """
+        get whether the value is an integer
+        """
         return self.is_int
 
     def _to_int(self):
